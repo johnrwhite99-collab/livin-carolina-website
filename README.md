@@ -53,11 +53,12 @@ pasted anywhere outside an env var or secrets manager.
 
 ### Cloud CMA (via CHS MLS)
 
-Seller valuation reports are meant to come from Cloud CMA. `src/lib/cloudcma.ts`
-is currently a stub — it validates the seller funnel doesn't fail if the
-integration isn't wired up yet, but doesn't call Cloud CMA's API. Get an
-agent ID + API key from CHS MLS/Cloud CMA support, then implement the real
-call there.
+Seller valuation reports come from Cloud CMA — every seller submission
+triggers a branded CMA report, built from real MLS comps and emailed
+directly to the lead. See `docs/cloudcma-integration.md`.
+
+Set `CLOUDCMA_API_KEY` as an environment variable (find it in Cloud CMA
+under Settings → API).
 
 ### Buyer relocation guide
 
@@ -79,5 +80,4 @@ variables from `.env.example`, and deploy — no other build config needed.
   placeholders marked "verify")
 - Domain, contact email, and phone in `src/lib/site-config.ts`
 - Lofty-side automations (see `docs/lofty-integration.md`)
-- Cloud CMA credentials + real API call in `src/lib/cloudcma.ts`
 - Real logo/imagery in `public/` (currently text-only branding)

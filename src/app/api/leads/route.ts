@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createLoftyLead, LoftyApiError, LoftyConfigError, type LeadFunnel } from "@/lib/lofty";
-import { requestCmaReport } from "@/lib/cloudcma";
+import { requestCmaReport, CloudCmaApiError, CloudCmaConfigError } from "@/lib/cloudcma";
 
 interface LeadRequestBody {
   funnel: LeadFunnel;
@@ -59,7 +59,13 @@ export async function POST(request: Request) {
     try {
       await requestCmaReport({ fullName: name.trim(), email: email.trim(), propertyAddress: propertyAddress.trim() });
     } catch (error) {
-      console.error("[leads] Cloud CMA request failed:", error);
+      if (error instanceof CloudCmaConfigError) {
+        console.error("[leads] Cloud CMA is not configured:", error.message);
+      } else if (error instanceof CloudCmaApiError) {
+        console.error("[leads] Cloud CMA API rejected the request:", error.message);
+      } else {
+        console.error("[leads] Unexpected error requesting a Cloud CMA report:", error);
+      }
     }
   }
 

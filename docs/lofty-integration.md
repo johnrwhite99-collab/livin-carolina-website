@@ -44,8 +44,7 @@ support) and confirm the `/leads` payload shape matches what's in
      follow-up sequence.
    - A drip campaign triggered by the `Website - Seller Valuation Request`
      source that follows up after the Cloud CMA report goes out (see
-     `docs/cloud-cma-integration.md`... not yet written — Cloud CMA isn't
-     wired up yet, see `src/lib/cloudcma.ts`).
+     `docs/cloudcma-integration.md`).
    - Lead routing rules if leads should go to someone other than whoever
      owns the source by default.
 5. **Set the environment variable.** On Netlify: Site settings →
