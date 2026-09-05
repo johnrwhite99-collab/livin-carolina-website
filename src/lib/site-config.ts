@@ -6,8 +6,8 @@ export const siteConfig = {
   tagline: "The real cost of living in Summerville, spelled out in numbers.",
   primaryArea: "Summerville, SC",
   extendedAreas: ["Charleston", "Hilton Head", "Beaufort", "Myrtle Beach", "Greenville"],
-  domain: "livincarolina.com", // placeholder until a domain is secured
-  contactEmail: "hello@livincarolina.com", // placeholder — update once domain/email is live
+  domain: "johnincharleston.com",
+  contactEmail: "hello@johnincharleston.com", // placeholder — update once a real inbox exists
   contactPhone: "", // placeholder — add team phone number
   // Lofty-hosted pages. Redirecting to these (rather than capturing leads
   // ourselves and calling Lofty's API) means lead capture and the drip
