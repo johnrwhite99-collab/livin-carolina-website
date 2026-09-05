@@ -8,9 +8,26 @@ export interface Post {
   excerpt: string;
   date: string; // ISO date
   body: string[]; // paragraphs
+  source?: string; // data provenance, shown at the bottom of market-stat posts
 }
 
 export const posts: Post[] = [
+  {
+    slug: "summerville-market-update-august-2026",
+    title: "Summerville Housing Market Update — August 2026",
+    excerpt:
+      "Inventory, pricing, days on market, and how much leverage buyers actually have right now — the real numbers, not a vibe.",
+    date: "2026-09-01",
+    body: [
+      "Here's the actual state of the Summerville market as of August 2026, pulled straight from CHS MLS data — no \"hot market\" cliches, just the numbers.",
+      "Active inventory sat at 1,529 listings, with 551 new listings hitting the market that month. That's a meaningful amount of choice for buyers compared to the ultra-tight inventory of a few years back.",
+      "The active median list price was $415,000. Total active list volume across the market was roughly $672 million, against about $240 million in new list volume for the month — a rough sense of how much new supply is flowing in relative to what's already sitting on the market.",
+      "Homes that sold moved at an average of 50.4 days on market, and the absorption rate came in at 3.39 months of supply — meaning at August's pace of sales, it would take about 3.4 months to sell through everything currently listed. That's generally considered a more balanced market than the seller-favored conditions of 2021-2022, but it's not a buyer's market either.",
+      "The sale-to-original-list-price ratio was 96.6% — on average, sellers are getting most of what they originally asked, with modest negotiating room rather than the bidding-war premiums of a few years ago.",
+      "None of this changes the CDD math for any specific neighborhood — that's still a separate, itemized cost on top of whatever the market is doing with price. But if you're deciding when to buy or list, this is the actual backdrop you're deciding against.",
+    ],
+    source: "CHS MLS market statistics, residential properties, City of Summerville, SC — data as of August 2026.",
+  },
   {
     slug: "what-is-a-cdd-fee",
     title: "What is a CDD fee, actually?",

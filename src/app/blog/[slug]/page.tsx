@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getPost, posts } from "@/lib/posts";
+import { siteConfig } from "@/lib/site-config";
 
 export function generateStaticParams() {
   return posts.map((p) => ({ slug: p.slug }));
@@ -19,8 +20,24 @@ export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
   const post = getPost(slug);
   if (!post) notFound();
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.date,
+    author: {
+      "@type": "Organization",
+      name: siteConfig.teamName,
+    },
+  };
+
   return (
     <article className="mx-auto max-w-3xl px-6 py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       <Link href="/blog" className="text-sm font-medium text-brand-gold-dark">
         &larr; Blog
       </Link>
@@ -37,6 +54,11 @@ export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
           <p key={i}>{paragraph}</p>
         ))}
       </div>
+      {post.source && (
+        <p className="mt-10 border-t border-border pt-4 text-xs text-foreground/50">
+          Source: {post.source}
+        </p>
+      )}
     </article>
   );
 }
