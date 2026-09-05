@@ -4,6 +4,7 @@ import { neighborhoods } from "@/lib/neighborhoods";
 export const metadata: Metadata = {
   title: "Video Hub",
   description: "Neighborhood walkthroughs and market updates from the YouTube channel.",
+  alternates: { canonical: "/videos" },
 };
 
 // Placeholder video hub, organized by neighborhood. Replace the `videoId`

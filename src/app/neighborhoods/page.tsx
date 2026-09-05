@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Neighborhood CDD & HOA Cost Guides",
   description:
     "Itemized CDD, HOA, and special assessment breakdowns for Summerville's master-planned communities.",
+  alternates: { canonical: "/neighborhoods" },
 };
 
 export default function NeighborhoodsIndex() {

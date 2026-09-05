@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getNeighborhood, neighborhoods, annualCostRange } from "@/lib/neighborhoods";
+import { posts } from "@/lib/posts";
 
 export function generateStaticParams() {
   return neighborhoods.map((n) => ({ slug: n.slug }));
@@ -14,6 +15,7 @@ export async function generateMetadata(props: PageProps<"/neighborhoods/[slug]">
   return {
     title: `${neighborhood.name} CDD & HOA Costs`,
     description: neighborhood.summary,
+    alternates: { canonical: `/neighborhoods/${neighborhood.slug}` },
   };
 }
 
@@ -23,6 +25,7 @@ export default async function NeighborhoodPage(props: PageProps<"/neighborhoods/
   if (!neighborhood) notFound();
 
   const range = annualCostRange(neighborhood);
+  const relatedPosts = posts.filter((p) => p.slug.includes("cdd"));
 
   const faqJsonLd = {
     "@context": "https://schema.org",
@@ -37,11 +40,30 @@ export default async function NeighborhoodPage(props: PageProps<"/neighborhoods/
     })),
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "/" },
+      { "@type": "ListItem", position: 2, name: "Neighborhoods", item: "/neighborhoods" },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: neighborhood.name,
+        item: `/neighborhoods/${neighborhood.slug}`,
+      },
+    ],
+  };
+
   return (
     <div className="mx-auto max-w-4xl px-6 py-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <Link href="/neighborhoods" className="text-sm font-medium text-brand-gold-dark">
         &larr; All neighborhoods
@@ -91,6 +113,21 @@ export default async function NeighborhoodPage(props: PageProps<"/neighborhoods/
           ))}
         </div>
       </div>
+
+      {relatedPosts.length > 0 && (
+        <div className="mt-12">
+          <h2 className="text-xl font-bold text-brand-black">Related reading</h2>
+          <ul className="mt-4 space-y-2">
+            {relatedPosts.map((post) => (
+              <li key={post.slug}>
+                <Link href={`/blog/${post.slug}`} className="font-medium text-brand-gold-dark hover:underline">
+                  {post.title} &rarr;
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       <div className="mt-12 rounded-xl border border-brand-gold/40 bg-brand-gold/10 p-6">
         <p className="font-semibold text-brand-black">

@@ -10,12 +10,30 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
+const siteUrl = process.env.SITE_URL ?? `https://${siteConfig.domain}`;
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: `${siteConfig.teamName} | ${siteConfig.primaryArea} Real Estate`,
     template: `%s | ${siteConfig.teamName}`,
   },
   description: siteConfig.tagline,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    siteName: siteConfig.teamName,
+    locale: "en_US",
+    title: `${siteConfig.teamName} | ${siteConfig.primaryArea} Real Estate`,
+    description: siteConfig.tagline,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.teamName} | ${siteConfig.primaryArea} Real Estate`,
+    description: siteConfig.tagline,
+  },
 };
 
 const realEstateAgentJsonLd = {

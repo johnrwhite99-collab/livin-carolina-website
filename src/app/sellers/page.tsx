@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Free Home Valuation",
   description:
     "Get a complimentary preliminary home valuation built from real MLS comps, plus the seller guide.",
+  alternates: { canonical: "/sellers" },
 };
 
 export default function SellersPage() {

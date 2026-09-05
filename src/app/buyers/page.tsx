@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Free Buyer Relocation Guide",
   description:
     "Get the Summerville buyer relocation guide: neighborhoods, schools, commute times, and the real CDD/HOA cost math.",
+  alternates: { canonical: "/buyers" },
 };
 
 export default function BuyersPage() {

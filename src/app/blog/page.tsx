@@ -5,6 +5,7 @@ import { posts } from "@/lib/posts";
 export const metadata: Metadata = {
   title: "Blog",
   description: "Relocation, cost-transparency, and market updates for Summerville, SC.",
+  alternates: { canonical: "/blog" },
 };
 
 export default function BlogIndex() {
