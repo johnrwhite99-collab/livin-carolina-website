@@ -9,11 +9,12 @@ export const siteConfig = {
   domain: "livincarolina.com", // placeholder until a domain is secured
   contactEmail: "hello@livincarolina.com", // placeholder — update once domain/email is live
   contactPhone: "", // placeholder — add team phone number
-  // Lofty-hosted seller valuation tool. Redirecting here (rather than
-  // capturing the lead ourselves and calling Lofty's API) means the lead
-  // capture and drip campaign are entirely Lofty's own, native behavior —
-  // no custom API integration to keep working. See docs/lofty-integration.md.
+  // Lofty-hosted pages. Redirecting to these (rather than capturing leads
+  // ourselves and calling Lofty's API) means lead capture and the drip
+  // campaign are entirely Lofty's own, native behavior — nothing custom
+  // on our side to keep working. See docs/lofty-integration.md.
   sellerValuationUrl: "https://johnwhite.charlestonarealiving.com/evaluation",
+  buyerRelocationGuideUrl: "https://johnwhite.charlestonarealiving.com/charleston-relocation",
   colors: {
     black: "#000000",
     gold: "#c5a95e",
