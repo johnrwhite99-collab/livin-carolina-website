@@ -1,10 +1,9 @@
-// Lofty CRM (formerly Chime) integration.
+// Lofty CRM (formerly Chime) integration — buyer funnel only.
 //
-// This posts every website lead into Lofty as a new lead, tagged by funnel
-// (buyer/seller) and source. Lofty-side automations (drip campaigns,
-// triggers, guide delivery) key off the `source` and `tags` values below —
-// create matching Sources/Tags and automations in Lofty before going live.
-// See /docs/lofty-integration.md for the recommended setup.
+// The seller funnel redirects straight to a Lofty-hosted valuation page
+// (see siteConfig.sellerValuationUrl) so Lofty's own lead capture and drip
+// handle it natively. This API call only covers the buyer relocation
+// guide funnel, where we still capture the lead ourselves on-site.
 //
 // IMPORTANT: the exact field names in the request body below are based on
 // Lofty's publicly documented conventions (Bearer auth, "source" is
@@ -16,14 +15,10 @@
 
 const LOFTY_API_BASE = process.env.LOFTY_API_BASE_URL ?? "https://api.lofty.com/v1.0";
 
-export type LeadFunnel = "buyer" | "seller";
-
 export interface LoftyLeadInput {
   fullName: string;
   email: string;
   phone?: string;
-  funnel: LeadFunnel;
-  propertyAddress?: string;
   notes?: string;
 }
 
@@ -37,15 +32,8 @@ function splitName(fullName: string): { firstName: string; lastName: string } {
   };
 }
 
-const FUNNEL_SOURCE: Record<LeadFunnel, string> = {
-  buyer: "Website - Buyer Relocation Guide",
-  seller: "Website - Seller Valuation Request",
-};
-
-const FUNNEL_TAGS: Record<LeadFunnel, string[]> = {
-  buyer: ["website-lead", "buyer-funnel"],
-  seller: ["website-lead", "seller-funnel"],
-};
+const BUYER_SOURCE = "Website - Buyer Relocation Guide";
+const BUYER_TAGS = ["website-lead", "buyer-funnel"];
 
 function buildLoftyPayload(input: LoftyLeadInput) {
   const { firstName, lastName } = splitName(input.fullName);
@@ -54,11 +42,9 @@ function buildLoftyPayload(input: LoftyLeadInput) {
     lastName,
     email: input.email,
     phone: input.phone,
-    source: FUNNEL_SOURCE[input.funnel],
-    tags: FUNNEL_TAGS[input.funnel],
-    remarks: [input.propertyAddress ? `Property address: ${input.propertyAddress}` : null, input.notes]
-      .filter(Boolean)
-      .join(" | "),
+    source: BUYER_SOURCE,
+    tags: BUYER_TAGS,
+    remarks: input.notes ?? "",
   };
 }
 

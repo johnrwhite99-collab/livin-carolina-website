@@ -44,7 +44,6 @@ export default function BuyersPage() {
           </p>
           <div className="mt-6">
             <LeadForm
-              funnel="buyer"
               submitLabel="Send me the guide"
               successMessage="The relocation guide is on its way to your inbox. Reply to that email anytime with questions."
             />

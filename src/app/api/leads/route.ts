@@ -1,17 +1,10 @@
 import { NextResponse } from "next/server";
-import { createLoftyLead, LoftyApiError, LoftyConfigError, type LeadFunnel } from "@/lib/lofty";
-import { requestCmaReport, CloudCmaApiError, CloudCmaConfigError } from "@/lib/cloudcma";
+import { createLoftyLead, LoftyApiError, LoftyConfigError } from "@/lib/lofty";
 
 interface LeadRequestBody {
-  funnel: LeadFunnel;
   name: string;
   email: string;
   phone: string;
-  propertyAddress?: string;
-}
-
-function isValidFunnel(value: unknown): value is LeadFunnel {
-  return value === "buyer" || value === "seller";
 }
 
 export async function POST(request: Request) {
@@ -22,25 +15,19 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
   }
 
-  const { funnel, name, email, phone, propertyAddress } = body;
+  const { name, email, phone } = body;
 
-  if (!isValidFunnel(funnel) || !name?.trim() || !email?.trim()) {
+  if (!name?.trim() || !email?.trim()) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
 
-  if (funnel === "seller" && !propertyAddress?.trim()) {
-    return NextResponse.json({ error: "Property address is required for a valuation" }, { status: 400 });
-  }
-
-  // Push the lead to Lofty first — that's the system of record the team
-  // works out of, and it's what drives the nurture drip.
+  // Push the lead to Lofty — that's the system of record the team works
+  // out of, and it's what drives the buyer nurture drip.
   try {
     await createLoftyLead({
       fullName: name.trim(),
       email: email.trim(),
       phone: phone?.trim(),
-      funnel,
-      propertyAddress: propertyAddress?.trim(),
     });
   } catch (error) {
     if (error instanceof LoftyConfigError) {
@@ -53,20 +40,6 @@ export async function POST(request: Request) {
     // Don't fail the visitor's submission over a downstream CRM outage —
     // but this IS a lost lead until someone checks the function logs, so
     // surface it loudly server-side.
-  }
-
-  if (funnel === "seller" && propertyAddress) {
-    try {
-      await requestCmaReport({ fullName: name.trim(), email: email.trim(), propertyAddress: propertyAddress.trim() });
-    } catch (error) {
-      if (error instanceof CloudCmaConfigError) {
-        console.error("[leads] Cloud CMA is not configured:", error.message);
-      } else if (error instanceof CloudCmaApiError) {
-        console.error("[leads] Cloud CMA API rejected the request:", error.message);
-      } else {
-        console.error("[leads] Unexpected error requesting a Cloud CMA report:", error);
-      }
-    }
   }
 
   return NextResponse.json({ ok: true });

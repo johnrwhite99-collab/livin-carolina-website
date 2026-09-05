@@ -3,12 +3,11 @@
 import { useState, type FormEvent } from "react";
 
 interface LeadFormProps {
-  funnel: "buyer" | "seller";
   submitLabel: string;
   successMessage: string;
 }
 
-export function LeadForm({ funnel, submitLabel, successMessage }: LeadFormProps) {
+export function LeadForm({ submitLabel, successMessage }: LeadFormProps) {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -18,11 +17,9 @@ export function LeadForm({ funnel, submitLabel, successMessage }: LeadFormProps)
     const form = event.currentTarget;
     const data = new FormData(form);
     const payload = {
-      funnel,
       name: String(data.get("name") ?? ""),
       email: String(data.get("email") ?? ""),
       phone: String(data.get("phone") ?? ""),
-      propertyAddress: funnel === "seller" ? String(data.get("propertyAddress") ?? "") : undefined,
     };
 
     try {
@@ -86,20 +83,6 @@ export function LeadForm({ funnel, submitLabel, successMessage }: LeadFormProps)
           className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-brand-black outline-none focus:border-brand-gold"
         />
       </div>
-      {funnel === "seller" && (
-        <div>
-          <label htmlFor="propertyAddress" className="mb-1 block text-sm font-medium text-brand-black">
-            Property address
-          </label>
-          <input
-            id="propertyAddress"
-            name="propertyAddress"
-            type="text"
-            required
-            className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-brand-black outline-none focus:border-brand-gold"
-          />
-        </div>
-      )}
       <button
         type="submit"
         disabled={status === "submitting"}
