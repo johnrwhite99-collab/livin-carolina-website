@@ -27,13 +27,18 @@ this metro.
 
 Real cost transparency is **one** differentiator, not the whole site. South
 Carolina master-planned communities can carry several legally distinct fee
-mechanisms at once — HOA, POA, regime fee, an Improvement District, a
-Municipal Improvement District, a special assessment, a special tax
-district, or an actual Community Development District (CDD). These are not
-interchangeable, and "CDD" is not a generic label for "master-planned-
-community fee." Every community fee record is typed by mechanism and carries
-a `verified` / `estimated` / `unverified` status — never a guess presented as
-fact.
+mechanisms at once — HOA, POA, regime fee, a Residential Improvement
+District, an Improvement District, a Municipal Improvement District, a
+special assessment, or a special purpose/tax district. These are not
+interchangeable. A Community Development District (CDD) is a **Florida-
+specific** legal structure (Fla. Stat. ch. 190) that South Carolina does not
+use — it's not a generic label for "master-planned-community fee," no
+Charleston-area community should ever be described as a "CDD community,"
+and it is deliberately not one of the `FeeType` options in
+`neighborhoods.ts`, even though some SC mechanisms serve a similar
+infrastructure-financing purpose. Every community fee record is typed by
+mechanism and carries a `verified` / `estimated` / `unverified` status —
+never a guess presented as fact.
 
 Beyond cost math, the site's broader value is being a genuinely useful,
 well-organized answer to "should I move to Charleston, and where" — covering

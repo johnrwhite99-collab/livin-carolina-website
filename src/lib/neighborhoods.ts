@@ -3,13 +3,17 @@
 //
 // CRITICAL: South Carolina master-planned communities can carry several
 // different, legally distinct fee mechanisms at once — HOA, POA, regime
-// fee, a Municipal Improvement District, a special assessment, a special
-// tax district, or an actual Community Development District (CDD). These
-// are NOT interchangeable, and "CDD" is not a generic label for "master-
-// planned-community fee." Every fee item below defaults to `feeType:
-// "Unverified"` unless a specific classification has been directly
-// confirmed (see the `note` field for provenance) — never inferred by
-// pattern-matching against other CDD communities.
+// fee, a Residential Improvement District, an Improvement District, a
+// Municipal Improvement District, a special assessment, or a special
+// purpose/tax district. These are NOT interchangeable. A Community
+// Development District (CDD) is a *Florida-specific* legal structure (Fla.
+// Stat. ch. 190) that South Carolina does not use, so it is deliberately
+// NOT one of the FeeType options below — no Charleston-area community
+// should ever be classified or described as a "CDD community." Every fee
+// item below defaults to `feeType: "Unverified"` unless a specific
+// classification has been directly confirmed (see the `note` field for
+// provenance) — never inferred by pattern-matching against other
+// communities.
 //
 // All dollar figures below are placeholders pending a current CDD/HOA
 // budget, assessment roll, or other primary source — `status: "unverified"`
@@ -25,11 +29,12 @@ export type FeeType =
   | "HOA"
   | "POA"
   | "Regime Fee"
+  | "Residential Improvement District"
   | "Improvement District"
   | "Municipal Improvement District"
   | "Special Assessment"
+  | "Special Purpose District"
   | "Special Tax District"
-  | "CDD"
   | "Unverified";
 
 export type VerificationStatus = "verified" | "estimated" | "unverified";
@@ -102,7 +107,7 @@ export const neighborhoods: Neighborhood[] = [
       {
         question: "Does Nexton have a CDD?",
         answer:
-          "No — Nexton's infrastructure assessment runs through the Nexton Improvement District, not a Community Development District (CDD). It functions similarly (an assessment tied to infrastructure financing), but it's a legally distinct mechanism, and it applies on top of separate Property Owners Association (POA) dues — Nexton uses a POA structure, not an HOA. Confirm the current assessment amount for a specific address before making an offer.",
+          "No — a Community Development District (CDD) is a Florida-specific legal structure that South Carolina doesn't use. Nexton's infrastructure assessment instead runs through the Nexton Improvement District, an SC mechanism that serves a similar purpose (financing infrastructure) but is a legally distinct structure. It applies on top of separate Property Owners Association (POA) dues — Nexton uses a POA structure, not an HOA. Confirm the current assessment amount for a specific address before making an offer.",
       },
       {
         question: "What will I actually pay in fees at Nexton?",
@@ -126,14 +131,14 @@ export const neighborhoods: Neighborhood[] = [
         feeType: "Unverified",
         label: "Community association / district fees",
         status: "unverified",
-        note: "Cane Bay Plantation includes multiple sections that may have different fee structures (HOA, POA, CDD, or other special district). No single classification is asserted here — verify the specific structure for the section a given address is in.",
+        note: "Cane Bay Plantation includes multiple sections that may have different fee structures (HOA, POA, or another special district — not a CDD, which South Carolina doesn't use). No single classification is asserted here — verify the specific structure for the section a given address is in.",
       },
     ],
     faqs: [
       {
         question: "Does Cane Bay Plantation have a CDD?",
         answer:
-          "Not confirmed. Cane Bay is a large community with multiple sections, and different sections may use different fee mechanisms (HOA, POA, or a special district). Don't assume a CDD applies — verify the specific structure and current fee amount for the section a given address is in.",
+          "No — a Community Development District (CDD) is a Florida-specific legal structure that South Carolina doesn't use, so Cane Bay wouldn't have one. Cane Bay is a large community with multiple sections, and different sections may use different SC fee mechanisms (HOA, POA, or a special district) — verify the specific structure and current fee amount for the section a given address is in.",
       },
     ],
   },

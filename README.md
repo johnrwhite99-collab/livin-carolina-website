@@ -53,15 +53,20 @@ generic `[slug]` route, so a new pillar needs one new route file plus the
 MDX content file, and a line added to `src/app/sitemap.ts`.
 
 ### The critical rule on factual content
-**Do not invent HOA, CDD, tax, insurance, pricing, school, market, builder,
+**Do not invent HOA, tax, insurance, pricing, school, market, builder,
 commute, or assessment figures.** South Carolina communities can carry
-several legally distinct fee mechanisms at once (HOA, POA, regime fee,
-improvement district, special assessment, special tax district, or an
-actual CDD) — these are not interchangeable, and "CDD" is not a generic
-label for "master-planned-community fee." Every `CommunityFeeItem` in
-`neighborhoods.ts` has a `status: "verified" | "estimated" | "unverified"`
-field — leave it `"unverified"` rather than guessing, and the community
-page will visibly badge it as such instead of presenting a guess as fact.
+several legally distinct fee mechanisms at once (HOA, POA, regime fee, a
+Residential Improvement District, an improvement district, a municipal
+improvement district, a special assessment, or a special purpose/tax
+district) — these are not interchangeable. A Community Development District
+(CDD) is a **Florida-specific** legal structure that South Carolina does not
+use — never describe a Charleston-area community as a "CDD community"; it's
+deliberately not one of the `FeeType` options in `neighborhoods.ts`, even
+though some SC mechanisms serve a similar infrastructure-financing purpose.
+Every `CommunityFeeItem` in `neighborhoods.ts` has a
+`status: "verified" | "estimated" | "unverified"` field — leave it
+`"unverified"` rather than guessing, and the community page will visibly
+badge it as such instead of presenting a guess as fact.
 
 ## Site structure
 

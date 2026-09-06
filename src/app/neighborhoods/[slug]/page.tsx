@@ -119,9 +119,10 @@ export default async function NeighborhoodPage(props: PageProps<"/neighborhoods/
       </div>
       <p className="mt-3 text-xs text-foreground/50">
         Fee mechanisms in South Carolina master-planned communities vary — HOA, POA, regime fee,
-        improvement district, special assessment, special tax district, and CDD are legally distinct
-        and a single community can carry more than one. Confirm current figures for a specific
-        address before making an offer.
+        improvement district, special assessment, and special purpose/tax district are legally
+        distinct and a single community can carry more than one. (A Community Development District,
+        or CDD, is a Florida-specific structure that South Carolina doesn&rsquo;t use.) Confirm current
+        figures for a specific address before making an offer.
       </p>
 
       <FAQSection faqs={neighborhood.faqs} />
