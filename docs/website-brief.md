@@ -1,57 +1,116 @@
-# Website Brief — Summerville Real Estate Lead Capture Site
+# Website Brief — John in Charleston
 
-## Service Area
-- **Primary focus:** Summerville, SC
-- **Signature niche:** transparent, math-driven cost breakdowns of CDD-governed master-planned communities — Nexton, Cane Bay Plantation, Carnes Crossroads, The Ponds
-- **Extended service area:** Charleston, Hilton Head, Beaufort, Myrtle Beach, Greenville
+## What this site is
 
-## Brand Voice
-Clarity over perfection. Dry humor. Direct, transparent, math-driven — no fluff, no "your dream home awaits" real estate cliché copy.
+A Charleston-area relocation and real-estate knowledge site, published under
+the editorial brand **John in Charleston**, run by John White of the **Livin'
+Carolina Team at Realty ONE Group Coastal**. The information architecture and
+user journey are inspired by livinginhawaii.com — answer the questions a
+relocation buyer has *before* they call an agent, rather than leading with
+listings — but the site's design, copy, and code are original, not copied.
 
-## Core Differentiator
-Nobody else is being straight about the *true all-in cost* of living in a CDD community (HOA + CDD fees + special assessments, not just the sticker price). That's the wedge already working on YouTube — the site should be built around it, not a generic "about me, search listings" template.
+The brokerage affiliation stays visible sitewide (header subline, footer
+compliance line, `RealEstateAgent`/`Person` JSON-LD) per Realty ONE Group
+Coastal's association rules. John in Charleston is the public-facing brand;
+the brokerage relationship is disclosed, not hidden.
 
-## Draft Site Structure
-- **Home** — clear value prop, CTA to lead form
-- **Neighborhood guides** — one page each for Nexton, Cane Bay Plantation, Carnes Crossroads, The Ponds, with real cost breakdowns
-- **Blog** — relocation-buyer content, cost-transparency posts, market updates
-- **Video hub** — embedded YouTube content, organized by neighborhood/topic
-- **Buyer/Seller guides**
-- **Lead capture** — form + calendar booking
+## Primary focus
 
-## SEO / AEO Angle
-The neighborhood + cost-transparency niche is naturally suited to answer-engine visibility: FAQ-formatted sections ("What are the CDD fees in Nexton?"), local business schema markup, and direct Q&A structure AI answer engines can lift cleanly.
+The Charleston metro / Lowcountry: Charleston (peninsula, West Ashley, James
+Island, Johns Island), the Summerville area (Nexton, Cane Bay Plantation,
+Carnes Crossroads, The Ponds), Mount Pleasant, North Charleston, Goose Creek,
+and Moncks Corner. This is not a statewide or regional SEO play — content
+and the public service-area claims (footer, structured data) stay scoped to
+this metro.
 
-## Decisions So Far
+## Core differentiator(s)
+
+Real cost transparency is **one** differentiator, not the whole site. South
+Carolina master-planned communities can carry several legally distinct fee
+mechanisms at once — HOA, POA, regime fee, an Improvement District, a
+Municipal Improvement District, a special assessment, a special tax
+district, or an actual Community Development District (CDD). These are not
+interchangeable, and "CDD" is not a generic label for "master-planned-
+community fee." Every community fee record is typed by mechanism and carries
+a `verified` / `estimated` / `unverified` status — never a guess presented as
+fact.
+
+Beyond cost math, the site's broader value is being a genuinely useful,
+well-organized answer to "should I move to Charleston, and where" — covering
+relocation logistics, cost of living, and objective area comparisons, built
+out incrementally as real, verified content rather than mass-generated thin
+pages.
+
+## Content and editorial rules
+
+- **No invented factual figures.** HOA/POA/CDD/tax/insurance/pricing/school/
+  market/builder/commute/assessment numbers are either sourced and marked
+  `verified`, a clearly-labeled `estimated` range, or left `unverified` and
+  visibly badged as such. Never presented as fact without a source.
+- **No mass-generated location pages.** A new area or community gets a page
+  when there's real, verified content for it — not to pad the sitemap.
+- **Fair Housing compliant.** Area and community descriptions are objective
+  (commute pattern, housing stock, fee structure, flood exposure) — never
+  "best for families," "good schools," "safe neighborhood," or other
+  steering/demographic-targeting language.
+- **Content model**: long-form editorial prose (pillar guides, blog posts) is
+  MDX under `content/`; verifiable facts (fees, geography, author info) are
+  structured TypeScript data under `src/lib/`; shared components handle
+  presentation. No CMS, no database — see `README.md` for the full model.
+
+## Information architecture
+
+Primary nav: Start Here / Moving / Cost of Living / Charleston Area / Blog /
+Videos, plus a persistent "Book a Zoom" CTA
+(`siteConfig.bookAZoomUrl` = `https://johnwhite.charlestonarealiving.com/book-a-zoom-call`).
+Buyers/Sellers are secondary (footer + homepage real-estate CTA), each
+redirecting to an existing Lofty-hosted page — no lead capture happens on
+this site itself.
+
+Geographic hierarchy (`src/lib/areas.ts`): Charleston Metro → Charleston /
+Summerville Area / Goose Creek / North Charleston / Moncks Corner / Mount
+Pleasant, with sub-areas nested underneath. This hierarchy is an editorial/
+navigation grouping, kept explicitly separate from legal jurisdiction facts
+(`GeoFacts` on each community record — mailing city, municipality, county —
+which default to unverified/blank rather than inferred from the grouping).
+
+## Brand voice
+
+Clarity over perfection. Direct, transparent, math-and-fact-driven — no
+"your dream home awaits" real estate cliché copy.
+
+## Decisions on record
+
 - **Team/business name:** Livin' Carolina Team at Realty ONE Group Coastal
-- **Compliance requirement:** brokerage name (Realty ONE Group Coastal) must appear on the site, per association rules — same requirement likely applies to social/YouTube
-- **Logo:** "Livin' Carolina" wordmark with palm tree, sun, and rooftop icon — blue/orange/green palette
-- **Broker brand colors:** black (#000000) and gold (#c5a95e), per Canva brand kit
-- **Color direction:** black and gold lead throughout — this is John's preferred personal brand palette outside the team logo too. Logo stays as-is for team identity, but site design (buttons, headers, accents) runs black/gold rather than the logo's beach palette.
-- **Domain:** not secured yet — will buy new or reactivate an old GoDaddy domain
-- **MLS/IDX:** live listings via the **CHS MLS** connection (already connected in Claude)
-- **Lead form:** serves both buyers and sellers via separate landing pages and funnels (see below)
+- **Editorial brand:** John in Charleston
+- **Compliance requirement:** brokerage name (Realty ONE Group Coastal) must
+  appear on the site, per association rules
+- **Brand colors:** black (#000000) and gold (#c5a95e)
+- **Domain:** johnincharleston.com (live on Netlify)
+- **Lead funnels:** buyer and seller pages each redirect to an existing
+  Lofty-hosted landing page (see `docs/lofty-integration.md`) — Lofty owns
+  lead capture and the nurture drip natively; there is no custom CRM API
+  integration on this site
+- **Book a Zoom:** `siteConfig.bookAZoomUrl` is the single source of truth
+  for this URL; every CTA reuses it rather than hardcoding a copy
 
-## Buyer & Seller Funnels
+## Phase status
 
-**Buyer landing page**
-- Offer: free buyer relocation guide — updated version pending team leader approval; older guide usable as a placeholder in the meantime
-- Capture: Name, Phone, Email
+**Phase 1 (shipped):** content model, geographic and fee-taxonomy data
+models, shared components, SEO/schema utilities, the relocation-portal
+homepage, the Start Here / Moving / Cost of Living pillar guides, the
+Charleston area hub, and the upgraded neighborhood/blog templates.
 
-**Seller landing page**
-- Offer: seller guide + complimentary preliminary home valuation
-- Capture: Name, Phone, Email, Property Address (needed for the valuation)
+**Phase 2 (planned, not started):** the Charleston True Cost / Carrying Cost
+Calculator — the first interactive tool, which is also what unlocks adding a
+homepage "Tools" section (that section stays absent until a real tool
+exists) — plus additional pillar content (new construction, PCS/military
+relocation, buying in SC) and additional community guides, built out as real
+content is researched and verified rather than generated in bulk.
 
-Both funnels feed the same lead capture data back to John.
+## Still open
 
-**Valuation:** decided — **Cloud CMA**, via the CHS MLS partnership. It has a public REST API purpose-built for "what's my home worth" lead capture: submit name/email/address, it auto-generates a branded CMA report from real MLS comps and emails it. Lead data then flows to Lofty for the drip sequence.
-
-**Ruled out:** Palm Agent (no API/SSO access) — may still be useful elsewhere on the site as a buyer/seller cost calculator, just not for the valuation funnel.
-
-**CRM / nurture:** team uses **Lofty CRM**. No pre-built connector exists — integration goes through Lofty's API directly. Wiring leads in, plus triggers and email drips, is a priority.
-
-## Still Open
-- Whether Realty ONE Group's internal app suite offers anything else worth connecting (check with broker IT/marketing)
-- Final buyer relocation guide: content is done but awaiting team-leader sign-off; the older guide is being used as a launch placeholder (see `docs/lofty-integration.md` for how the swap works)
-- Cloud CMA API credentials (agent ID + API key) from CHS MLS / Cloud CMA support — needed to finish `src/lib/cloudcma.ts`
-- Domain name (buy new or reactivate an old GoDaddy domain) and a real contact email/phone to replace the placeholders in `src/lib/site-config.ts`
+- Real, sourced fee figures and confirmed fee-type classifications for most
+  communities in `src/lib/neighborhoods.ts` (currently `"unverified"`)
+- Real logo/imagery in `public/` (currently text-only branding)
+- A real contact phone number in `src/lib/site-config.ts` (currently blank)

@@ -20,7 +20,9 @@ export async function GuidePage({ slug }: { slug: string }) {
   const frontmatter = getGuideFrontmatter(slug);
   if (!frontmatter) notFound();
 
-  const { content, headings } = await getGuide(slug);
+  const doc = await getGuide(slug);
+  if (!doc) notFound();
+  const { content, headings } = doc;
   const author = getAuthor(frontmatter.author);
   const faqs = frontmatter.faq ?? [];
 

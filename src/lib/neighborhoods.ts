@@ -69,11 +69,12 @@ export const neighborhoods: Neighborhood[] = [
     slug: "nexton",
     name: "Nexton",
     summary:
-      "One of the largest master-planned communities in the Charleston area, spanning land in both Berkeley and Dorchester counties. Infrastructure and amenities are funded through the Nexton Improvement District, a special-assessment mechanism distinct from a Community Development District (CDD) — the assessment shows up as a line item on the tax bill, and HOA dues are separate on top of it.",
+      "One of the largest master-planned communities in the Charleston area, with a Summerville, SC mailing address in Berkeley County. Infrastructure and amenities are funded through the Nexton Improvement District, a special-assessment mechanism distinct from a Community Development District (CDD) — the assessment shows up as a line item on the tax bill, and a Property Owners Association (POA) with neighborhood-specific regime fees applies on top of it.",
     geoFacts: {
       editorialArea: "Summerville Area",
       mailingCity: "Summerville, SC",
-      jurisdictionVerified: false,
+      county: "Berkeley County",
+      jurisdictionVerified: true,
     },
     feeItems: [
       {
@@ -84,10 +85,12 @@ export const neighborhoods: Neighborhood[] = [
         note: "Entity/classification confirmed by the site owner; the dollar figure has not been verified against a current assessment roll and is not shown until it is.",
       },
       {
-        feeType: "Unverified",
-        label: "HOA / community association dues",
+        feeType: "POA",
+        entityName: "Nexton Property Owners Association",
+        label: "POA dues / regime fee",
+        subsection: "Varies by neighborhood section",
         status: "unverified",
-        note: "Fee-type classification (HOA vs. POA vs. other) not yet confirmed.",
+        note: "Nexton uses a Property Owners Association structure with neighborhood-specific POA/regime fee information published per section — entity/classification confirmed by the site owner; dollar figures not yet verified against a current budget.",
       },
       {
         feeType: "Unverified",
@@ -99,12 +102,12 @@ export const neighborhoods: Neighborhood[] = [
       {
         question: "Does Nexton have a CDD?",
         answer:
-          "No — Nexton's infrastructure assessment runs through the Nexton Improvement District, not a Community Development District (CDD). It functions similarly (an assessment tied to infrastructure financing, on top of separate HOA dues), but it's a legally distinct mechanism. Confirm the current assessment amount for a specific address before making an offer.",
+          "No — Nexton's infrastructure assessment runs through the Nexton Improvement District, not a Community Development District (CDD). It functions similarly (an assessment tied to infrastructure financing), but it's a legally distinct mechanism, and it applies on top of separate Property Owners Association (POA) dues — Nexton uses a POA structure, not an HOA. Confirm the current assessment amount for a specific address before making an offer.",
       },
       {
         question: "What will I actually pay in fees at Nexton?",
         answer:
-          "Expect at least two separate line items: the Nexton Improvement District assessment and HOA dues, and possibly a phase-specific special assessment on top. We don't have current verified figures for any of these yet — ask for the current assessment roll and HOA budget for the specific address before writing an offer.",
+          "Expect at least two separate line items: the Nexton Improvement District assessment and POA dues (which vary by neighborhood section), and possibly a phase-specific special assessment on top. We don't have current verified figures for any of these yet — ask for the current assessment roll and the specific section's POA/regime budget for the address before writing an offer.",
       },
     ],
   },

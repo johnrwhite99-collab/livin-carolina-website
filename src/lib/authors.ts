@@ -16,7 +16,7 @@ export const authors: Record<string, Author> = {
     slug: "john-white",
     name: "John White",
     role: "Realtor, Livin' Carolina Team",
-    bio: "John White has lived and worked in the Charleston area since 1998, helping people relocate to Summerville, Charleston, Mount Pleasant, and the rest of the Lowcountry. John in Charleston is his ongoing effort to answer the questions people actually ask before they call an agent — real costs, real neighborhoods, no filler.",
+    bio: "John White has lived in the Charleston area since 1998 and has worked as a Realtor since 2017. He joined the Livin' Carolina Team at Realty ONE Group Coastal in 2023 after working independently. John in Charleston is his ongoing effort to answer the questions people actually ask before they call an agent — real costs, communities, relocation logistics, and the details that don't always make it into the brochure.",
     brokerageAffiliation: "Livin' Carolina Team at Realty ONE Group Coastal",
   },
 };

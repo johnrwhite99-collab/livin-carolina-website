@@ -5,6 +5,8 @@
 import { siteConfig } from "@/lib/site-config";
 import type { Author } from "@/lib/authors";
 
+const SITE_URL = `https://${siteConfig.domain}`;
+
 export function organizationJsonLd() {
   return {
     "@context": "https://schema.org",
@@ -75,7 +77,7 @@ export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
       "@type": "ListItem",
       position: i + 1,
       name: item.name,
-      item: item.path,
+      item: `${SITE_URL}${item.path}`,
     })),
   };
 }

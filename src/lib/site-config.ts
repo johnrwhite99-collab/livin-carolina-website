@@ -11,7 +11,7 @@ export const siteConfig = {
   brokerageName: "Realty ONE Group Coastal",
   tagline: "Practical, transparent guides to moving to Charleston, Summerville, and the Lowcountry.",
   primaryArea: "Charleston, SC",
-  extendedAreas: ["Summerville", "Mount Pleasant", "Hilton Head", "Beaufort", "Myrtle Beach", "Greenville"],
+  extendedAreas: ["Summerville", "Mount Pleasant", "North Charleston", "Goose Creek", "Moncks Corner"],
   domain: "johnincharleston.com",
   contactEmail: "hello@johnincharleston.com", // placeholder — update once a real inbox exists
   contactPhone: "", // placeholder — add team phone number

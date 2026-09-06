@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
+import { MobileNav } from "@/components/MobileNav";
 
 const navLinks = [
   { href: "/start-here", label: "Start Here" },
@@ -13,7 +14,7 @@ const navLinks = [
 export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-brand-black text-white">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-4">
+      <div className="relative mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-4">
         <Link href="/" className="flex flex-col leading-tight">
           <span className="text-lg font-semibold tracking-tight">{siteConfig.editorialBrand}</span>
           <span className="text-xs text-brand-gold">
@@ -31,12 +32,15 @@ export function Header() {
             </Link>
           ))}
         </nav>
-        <a
-          href={siteConfig.bookAZoomUrl}
-          className="shrink-0 rounded-full bg-brand-gold px-4 py-2 text-sm font-semibold text-brand-black transition-colors hover:bg-brand-gold-dark"
-        >
-          Book a Zoom
-        </a>
+        <div className="flex shrink-0 items-center gap-2">
+          <a
+            href={siteConfig.bookAZoomUrl}
+            className="rounded-full bg-brand-gold px-4 py-2 text-sm font-semibold text-brand-black transition-colors hover:bg-brand-gold-dark"
+          >
+            Book a Zoom
+          </a>
+          <MobileNav />
+        </div>
       </div>
     </header>
   );

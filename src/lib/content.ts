@@ -92,17 +92,17 @@ export function getAllBlogPosts(): (DocFrontmatter & { slug: string })[] {
 }
 
 export function getGuideFrontmatter(slug: string): DocFrontmatter | null {
-  return listSlugs(GUIDES_DIR).includes(slug) ? frontmatterOf(GUIDES_DIR, slug) : null;
+  return listGuideSlugs().includes(slug) ? frontmatterOf(GUIDES_DIR, slug) : null;
 }
 
 export function getBlogFrontmatter(slug: string): DocFrontmatter | null {
-  return listSlugs(BLOG_DIR).includes(slug) ? frontmatterOf(BLOG_DIR, slug) : null;
+  return listBlogSlugs().includes(slug) ? frontmatterOf(BLOG_DIR, slug) : null;
 }
 
 export async function getGuide(slug: string) {
-  return compileDoc(GUIDES_DIR, slug);
+  return listGuideSlugs().includes(slug) ? compileDoc(GUIDES_DIR, slug) : null;
 }
 
 export async function getBlogPost(slug: string) {
-  return compileDoc(BLOG_DIR, slug);
+  return listBlogSlugs().includes(slug) ? compileDoc(BLOG_DIR, slug) : null;
 }

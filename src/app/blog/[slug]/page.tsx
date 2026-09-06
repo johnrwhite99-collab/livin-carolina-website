@@ -26,7 +26,9 @@ export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
   const frontmatter = getBlogFrontmatter(slug);
   if (!frontmatter) notFound();
 
-  const { content, headings } = await getBlogPost(slug);
+  const doc = await getBlogPost(slug);
+  if (!doc) notFound();
+  const { content, headings } = doc;
   const author = getAuthor(frontmatter.author);
 
   return (

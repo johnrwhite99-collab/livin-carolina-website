@@ -6,7 +6,7 @@ import { buildMetadata } from "@/lib/seo";
 import { FAQSection } from "@/components/FAQSection";
 
 export const metadata: Metadata = buildMetadata({
-  title: `${siteConfig.editorialBrand} | ${siteConfig.primaryArea} Relocation Guide`,
+  title: `${siteConfig.primaryArea} Relocation Guide`,
   description: siteConfig.tagline,
   path: "/",
 });
