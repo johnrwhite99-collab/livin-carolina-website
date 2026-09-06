@@ -9,7 +9,7 @@ const secondaryLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-brand-black text-white/70">
+    <footer className="border-t border-brand-gold/30 bg-brand-black text-white/70">
       <div className="mx-auto max-w-6xl px-6 py-10 text-sm">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>

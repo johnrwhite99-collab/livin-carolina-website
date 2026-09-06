@@ -112,12 +112,35 @@ the planned IndexNow setup.
 (`@netlify/plugin-nextjs`) and an explicit `www` → apex redirect. Connect
 the repo in Netlify and deploy — no environment variables are required.
 
+## Adding real photography
+
+Two image slots are wired up and ready for real photos — both currently
+render a deliberate placeholder (not a stock photo) until a real file is
+supplied:
+
+- **Homepage hero** (`src/components/HeroPhoto.tsx`): drop a file in
+  `public/images/` and set `HERO_IMAGE_SRC` in `src/app/page.tsx` to its
+  path (e.g. `"/images/hero-charleston.jpg"`). Landscape, **4:3**, at least
+  **1600×1200px** (2000×1500 or larger preferred for retina screens), well
+  under 1MB after compression. A real Lowcountry scene — the Ravenel
+  Bridge, the peninsula skyline, marsh at golden hour, a streetscape —
+  works better here than a generic "for sale" photo.
+- **Homepage author/trust section** (`src/components/AuthorTrust.tsx`, also
+  used by the smaller `AuthorBox` on articles): set `photo` on the
+  `john-white` entry in `src/lib/authors.ts` to a path under
+  `public/images/`. Square, **1:1**, at least **800×800px**, an actual
+  headshot rather than a generic avatar.
+
+Both components fall back gracefully (an abstract line-art placeholder for
+the hero, an initials mark for the author) if the source is left unset, so
+there's nothing broken in the meantime.
+
 ## Content still needed
 
 - Real fee figures and confirmed fee-type classifications in
   `src/lib/neighborhoods.ts` (currently `"unverified"` — see the critical
   rule above)
-- Real logo/imagery in `public/` (currently text-only branding)
+- Real hero and author photography (see above)
 - Phase 2 content: remaining pillar pages (new construction, PCS/military
   relocation, buying in SC), more communities, and the Charleston True
   Cost / Carrying Cost calculator (the first interactive tool — the
