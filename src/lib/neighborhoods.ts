@@ -1,25 +1,66 @@
-// Neighborhood cost-transparency data. This is the site's core differentiator —
-// real, itemized CDD/HOA math instead of a generic "beautiful community" pitch.
-// Figures below are placeholders (marked "verify") until pulled from current
-// CDD budgets / HOA docs — swap them in before publishing.
+// Community cost-transparency data. This is the site's core differentiator —
+// real, itemized cost math instead of a generic "beautiful community" pitch.
+//
+// CRITICAL: South Carolina master-planned communities can carry several
+// different, legally distinct fee mechanisms at once — HOA, POA, regime
+// fee, a Municipal Improvement District, a special assessment, a special
+// tax district, or an actual Community Development District (CDD). These
+// are NOT interchangeable, and "CDD" is not a generic label for "master-
+// planned-community fee." Every fee item below defaults to `feeType:
+// "Unverified"` unless a specific classification has been directly
+// confirmed (see the `note` field for provenance) — never inferred by
+// pattern-matching against other CDD communities.
+//
+// All dollar figures below are placeholders pending a current CDD/HOA
+// budget, assessment roll, or other primary source — `status: "unverified"`
+// on every item reflects that, independent of whether the fee-type
+// classification itself is known.
 
 export interface NeighborhoodFaq {
   question: string;
   answer: string;
 }
 
-export interface CostLineItem {
+export type FeeType =
+  | "HOA"
+  | "POA"
+  | "Regime Fee"
+  | "Improvement District"
+  | "Municipal Improvement District"
+  | "Special Assessment"
+  | "Special Tax District"
+  | "CDD"
+  | "Unverified";
+
+export type VerificationStatus = "verified" | "estimated" | "unverified";
+
+export interface CommunityFeeItem {
+  feeType: FeeType;
+  entityName?: string; // the actual named district/association, if known, e.g. "Nexton Improvement District"
   label: string;
-  annualLow: number;
-  annualHigh: number;
+  subsection?: string; // for communities where different sections carry different fees
+  annualLow?: number;
+  annualHigh?: number;
+  status: VerificationStatus;
+  source?: string;
+  lastVerified?: string;
   note?: string;
+}
+
+export interface GeoFacts {
+  editorialArea: string; // navigation/SEO grouping (e.g. "Summerville Area") — not a jurisdiction claim
+  mailingCity?: string; // USPS mailing city — a postal fact, not a legal one
+  municipality?: string; // left unset until confirmed
+  county?: string; // left unset until confirmed
+  jurisdictionVerified: boolean; // false unless municipality/county above are actually confirmed
 }
 
 export interface Neighborhood {
   slug: string;
   name: string;
   summary: string;
-  costItems: CostLineItem[];
+  geoFacts: GeoFacts;
+  feeItems: CommunityFeeItem[];
   faqs: NeighborhoodFaq[];
 }
 
@@ -28,22 +69,42 @@ export const neighborhoods: Neighborhood[] = [
     slug: "nexton",
     name: "Nexton",
     summary:
-      "Summerville's largest master-planned community, spanning Berkeley and Dorchester counties. CDD debt funds the roads, amenities, and infrastructure — and it shows up as a line item on every tax bill.",
-    costItems: [
-      { label: "CDD assessment (verify current bond year)", annualLow: 1500, annualHigh: 3200 },
-      { label: "HOA dues", annualLow: 600, annualHigh: 1200 },
-      { label: "Special assessments (verify — varies by phase/village)", annualLow: 0, annualHigh: 500 },
+      "One of the largest master-planned communities in the Charleston area, spanning land in both Berkeley and Dorchester counties. Infrastructure and amenities are funded through the Nexton Improvement District, a special-assessment mechanism distinct from a Community Development District (CDD) — the assessment shows up as a line item on the tax bill, and HOA dues are separate on top of it.",
+    geoFacts: {
+      editorialArea: "Summerville Area",
+      mailingCity: "Summerville, SC",
+      jurisdictionVerified: false,
+    },
+    feeItems: [
+      {
+        feeType: "Improvement District",
+        entityName: "Nexton Improvement District",
+        label: "Improvement District assessment",
+        status: "unverified",
+        note: "Entity/classification confirmed by the site owner; the dollar figure has not been verified against a current assessment roll and is not shown until it is.",
+      },
+      {
+        feeType: "Unverified",
+        label: "HOA / community association dues",
+        status: "unverified",
+        note: "Fee-type classification (HOA vs. POA vs. other) not yet confirmed.",
+      },
+      {
+        feeType: "Unverified",
+        label: "Special assessments (varies by phase/village)",
+        status: "unverified",
+      },
     ],
     faqs: [
       {
-        question: "What are the CDD fees in Nexton?",
+        question: "Does Nexton have a CDD?",
         answer:
-          "Nexton is funded by multiple Community Development Districts, and the assessment depends on which village and phase a home sits in. Figures above are placeholders — request the current CDD budget for a specific address before making an offer.",
+          "No — Nexton's infrastructure assessment runs through the Nexton Improvement District, not a Community Development District (CDD). It functions similarly (an assessment tied to infrastructure financing, on top of separate HOA dues), but it's a legally distinct mechanism. Confirm the current assessment amount for a specific address before making an offer.",
       },
       {
-        question: "Do CDD fees in Nexton ever go away?",
+        question: "What will I actually pay in fees at Nexton?",
         answer:
-          "CDD bonds amortize over a set term (commonly 20–30 years). The assessment typically decreases as the bond is paid down, but it does not disappear until the bond is retired — confirm the payoff schedule for the specific district.",
+          "Expect at least two separate line items: the Nexton Improvement District assessment and HOA dues, and possibly a phase-specific special assessment on top. We don't have current verified figures for any of these yet — ask for the current assessment roll and HOA budget for the specific address before writing an offer.",
       },
     ],
   },
@@ -51,17 +112,25 @@ export const neighborhoods: Neighborhood[] = [
     slug: "cane-bay-plantation",
     name: "Cane Bay Plantation",
     summary:
-      "A large CDD community northwest of Nexton, built around a network of lakes and trails. Multiple CDDs cover different sections, so the assessment varies by address.",
-    costItems: [
-      { label: "CDD assessment (verify current bond year)", annualLow: 1400, annualHigh: 2800 },
-      { label: "HOA dues", annualLow: 500, annualHigh: 1000 },
-      { label: "Special assessments (verify)", annualLow: 0, annualHigh: 400 },
+      "A large master-planned community northwest of Nexton, built around a network of lakes and trails. Different sections of Cane Bay may carry different HOA, POA, or assessment structures — we don't yet have verified, section-by-section fee data, so no fee classification is asserted below at the master-community level.",
+    geoFacts: {
+      editorialArea: "Summerville Area",
+      mailingCity: "Summerville, SC",
+      jurisdictionVerified: false,
+    },
+    feeItems: [
+      {
+        feeType: "Unverified",
+        label: "Community association / district fees",
+        status: "unverified",
+        note: "Cane Bay Plantation includes multiple sections that may have different fee structures (HOA, POA, CDD, or other special district). No single classification is asserted here — verify the specific structure for the section a given address is in.",
+      },
     ],
     faqs: [
       {
-        question: "What are the CDD fees in Cane Bay Plantation?",
+        question: "Does Cane Bay Plantation have a CDD?",
         answer:
-          "Cane Bay is covered by more than one CDD, and the per-home assessment varies by section. Figures above are placeholders — confirm the current-year assessment for the specific parcel before writing an offer.",
+          "Not confirmed. Cane Bay is a large community with multiple sections, and different sections may use different fee mechanisms (HOA, POA, or a special district). Don't assume a CDD applies — verify the specific structure and current fee amount for the section a given address is in.",
       },
     ],
   },
@@ -69,17 +138,25 @@ export const neighborhoods: Neighborhood[] = [
     slug: "carnes-crossroads",
     name: "Carnes Crossroads",
     summary:
-      "A smaller, walkable CDD community near Goose Creek with a town-center feel. The CDD assessment funds the shared amenities and infrastructure.",
-    costItems: [
-      { label: "CDD assessment (verify current bond year)", annualLow: 1200, annualHigh: 2600 },
-      { label: "HOA dues", annualLow: 500, annualHigh: 900 },
-      { label: "Special assessments (verify)", annualLow: 0, annualHigh: 400 },
+      "A smaller, walkable master-planned community near Goose Creek with a town-center feel. We don't yet have a verified fee-type classification for this community's assessments.",
+    geoFacts: {
+      editorialArea: "Summerville Area",
+      mailingCity: "Summerville, SC",
+      jurisdictionVerified: false,
+    },
+    feeItems: [
+      {
+        feeType: "Unverified",
+        label: "Community association / district fees",
+        status: "unverified",
+        note: "Fee-type classification and current amounts not yet verified.",
+      },
     ],
     faqs: [
       {
-        question: "What are the CDD fees in Carnes Crossroads?",
+        question: "What kind of fees does Carnes Crossroads have?",
         answer:
-          "Figures above are placeholders pending the current CDD budget. Request the district's current assessment roll for the specific address before making an offer.",
+          "Not yet verified. Request the current HOA budget and any district assessment roll for the specific address before making an offer — we'll update this page once we have confirmed figures.",
       },
     ],
   },
@@ -87,17 +164,25 @@ export const neighborhoods: Neighborhood[] = [
     slug: "the-ponds",
     name: "The Ponds",
     summary:
-      "A CDD community on the Summerville/Dorchester side, known for its farm and community garden amenities. Assessment covers the shared infrastructure and amenity debt.",
-    costItems: [
-      { label: "CDD assessment (verify current bond year)", annualLow: 1000, annualHigh: 2200 },
-      { label: "HOA dues", annualLow: 400, annualHigh: 850 },
-      { label: "Special assessments (verify)", annualLow: 0, annualHigh: 350 },
+      "A master-planned community on the Summerville side, known for its farm and community garden amenities. We don't yet have a verified fee-type classification for this community's assessments.",
+    geoFacts: {
+      editorialArea: "Summerville Area",
+      mailingCity: "Summerville, SC",
+      jurisdictionVerified: false,
+    },
+    feeItems: [
+      {
+        feeType: "Unverified",
+        label: "Community association / district fees",
+        status: "unverified",
+        note: "Fee-type classification and current amounts not yet verified.",
+      },
     ],
     faqs: [
       {
-        question: "What are the CDD fees in The Ponds?",
+        question: "What kind of fees does The Ponds have?",
         answer:
-          "Figures above are placeholders pending the current CDD budget. Request the district's current assessment roll for the specific address before making an offer.",
+          "Not yet verified. Request the current HOA budget and any district assessment roll for the specific address before making an offer — we'll update this page once we have confirmed figures.",
       },
     ],
   },
@@ -107,12 +192,14 @@ export function getNeighborhood(slug: string): Neighborhood | undefined {
   return neighborhoods.find((n) => n.slug === slug);
 }
 
-export function annualCostRange(n: Neighborhood): { low: number; high: number } {
-  return n.costItems.reduce(
-    (acc, item) => ({
-      low: acc.low + item.annualLow,
-      high: acc.high + item.annualHigh,
-    }),
-    { low: 0, high: 0 }
-  );
+// Only sums items with actual verified/estimated dollar figures — unverified
+// items (the default, right now, for everything) contribute nothing rather
+// than silently rendering as $0.
+export function annualCostRange(n: Neighborhood): { low: number; high: number; hasFigures: boolean } {
+  const priced = n.feeItems.filter((item) => item.annualLow != null && item.annualHigh != null);
+  return {
+    low: priced.reduce((sum, item) => sum + (item.annualLow ?? 0), 0),
+    high: priced.reduce((sum, item) => sum + (item.annualHigh ?? 0), 0),
+    hasFigures: priced.length > 0,
+  };
 }

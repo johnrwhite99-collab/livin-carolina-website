@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { JsonLd } from "@/components/JsonLd";
 import { siteConfig } from "@/lib/site-config";
+import { defaultAuthor } from "@/lib/authors";
+import { realEstateAgentJsonLd, personJsonLd } from "@/lib/schema";
 import "./globals.css";
 
 const inter = Inter({
@@ -11,12 +14,13 @@ const inter = Inter({
 });
 
 const siteUrl = process.env.SITE_URL ?? `https://${siteConfig.domain}`;
+const defaultTitle = `${siteConfig.editorialBrand} | ${siteConfig.primaryArea} Relocation Guide`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${siteConfig.teamName} | ${siteConfig.primaryArea} Real Estate`,
-    template: `%s | ${siteConfig.teamName}`,
+    default: defaultTitle,
+    template: `%s | ${siteConfig.editorialBrand}`,
   },
   description: siteConfig.tagline,
   alternates: {
@@ -24,26 +28,15 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    siteName: siteConfig.teamName,
+    siteName: siteConfig.editorialBrand,
     locale: "en_US",
-    title: `${siteConfig.teamName} | ${siteConfig.primaryArea} Real Estate`,
+    title: defaultTitle,
     description: siteConfig.tagline,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.teamName} | ${siteConfig.primaryArea} Real Estate`,
+    title: defaultTitle,
     description: siteConfig.tagline,
-  },
-};
-
-const realEstateAgentJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "RealEstateAgent",
-  name: siteConfig.teamName,
-  areaServed: [siteConfig.primaryArea, ...siteConfig.extendedAreas],
-  parentOrganization: {
-    "@type": "Organization",
-    name: siteConfig.brokerageName,
   },
 };
 
@@ -51,10 +44,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-background text-foreground">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(realEstateAgentJsonLd) }}
-        />
+        <JsonLd data={realEstateAgentJsonLd()} />
+        <JsonLd data={personJsonLd(defaultAuthor)} />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

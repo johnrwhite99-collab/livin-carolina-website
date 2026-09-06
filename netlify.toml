@@ -4,3 +4,13 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+# Canonical host: johnincharleston.com (apex), not www. Netlify's dashboard
+# domain settings already handle this, but codifying it here keeps it
+# explicit and version-controlled rather than relying solely on a dashboard
+# toggle.
+[[redirects]]
+  from = "https://www.johnincharleston.com/*"
+  to = "https://johnincharleston.com/:splat"
+  status = 301
+  force = true

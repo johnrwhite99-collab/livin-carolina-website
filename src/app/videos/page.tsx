@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
 import { neighborhoods } from "@/lib/neighborhoods";
+import { siteConfig } from "@/lib/site-config";
+import { buildMetadata } from "@/lib/seo";
+import { YouTubeEmbed } from "@/components/YouTubeEmbed";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Video Hub",
-  description: "Neighborhood walkthroughs and market updates from the YouTube channel.",
-  alternates: { canonical: "/videos" },
-};
+  description: "Charleston-area walkthroughs and market updates from the John in Charleston YouTube channel.",
+  path: "/videos",
+});
 
-// Placeholder video hub, organized by neighborhood. Replace the `videoId`
-// values with real YouTube video IDs as they're published, and add entries
-// for topic-based playlists (market updates, buyer tips, etc.) as needed.
+// Populate as specific videos get tied to a community — until then, each
+// section links out to the channel rather than showing an empty grid.
 const videosByNeighborhood: Record<string, { title: string; videoId: string }[]> = {
   nexton: [],
   "cane-bay-plantation": [],
@@ -22,8 +24,19 @@ export default function VideosPage() {
     <div className="mx-auto max-w-6xl px-6 py-16">
       <h1 className="text-3xl font-bold text-brand-black">Video hub</h1>
       <p className="mt-3 max-w-2xl text-foreground/70">
-        Neighborhood walkthroughs and market updates from the channel, organized by community.
+        Charleston-area walkthroughs and market updates, organized by community. Full library lives
+        on the{" "}
+        <a href={siteConfig.youtubeChannelUrl} className="font-medium text-brand-gold-dark hover:underline">
+          John in Charleston YouTube channel
+        </a>
+        .
       </p>
+      <a
+        href={siteConfig.youtubeChannelUrl}
+        className="mt-6 inline-block rounded-full bg-brand-gold px-6 py-3 font-semibold text-brand-black transition-colors hover:bg-brand-gold-dark"
+      >
+        Watch on YouTube
+      </a>
       <div className="mt-10 space-y-12">
         {neighborhoods.map((n) => {
           const videos = videosByNeighborhood[n.slug] ?? [];
@@ -32,25 +45,14 @@ export default function VideosPage() {
               <h2 className="text-xl font-semibold text-brand-black">{n.name}</h2>
               {videos.length === 0 ? (
                 <p className="mt-2 text-sm text-foreground/50">
-                  Videos coming soon &mdash; embed IDs go in{" "}
-                  <code className="rounded bg-black/5 px-1.5 py-0.5">
-                    src/app/videos/page.tsx
-                  </code>
-                  .
+                  No videos tied to {n.name} yet &mdash; check the full channel above.
                 </p>
               ) : (
                 <div className="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {videos.map((v) => (
-                    <div key={v.videoId} className="overflow-hidden rounded-xl border border-border">
-                      <div className="aspect-video">
-                        <iframe
-                          className="h-full w-full"
-                          src={`https://www.youtube.com/embed/${v.videoId}`}
-                          title={v.title}
-                          allowFullScreen
-                        />
-                      </div>
-                      <p className="p-3 text-sm font-medium text-brand-black">{v.title}</p>
+                    <div key={v.videoId}>
+                      <YouTubeEmbed videoId={v.videoId} title={v.title} />
+                      <p className="mt-2 text-sm font-medium text-brand-black">{v.title}</p>
                     </div>
                   ))}
                 </div>
