@@ -14,3 +14,19 @@
   to = "https://johnincharleston.com/:splat"
   status = 301
   force = true
+
+# These two blog posts were removed (synthetic seed content, not real
+# editorial history) but the URLs were publicly live, so redirect rather
+# than leave a dead link — both covered similar cost-transparency ground
+# to /cost-of-living, which is the most relevant surviving page.
+[[redirects]]
+  from = "/blog/what-is-a-cdd-fee"
+  to = "/cost-of-living"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/cdd-vs-hoa-whats-the-difference"
+  to = "/cost-of-living"
+  status = 301
+  force = true
