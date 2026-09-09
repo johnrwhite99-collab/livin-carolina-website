@@ -15,7 +15,7 @@ export function AuthorTrust({ author }: { author: Author }) {
 
   return (
     <section className="border-t border-border bg-surface">
-      <div className="mx-auto max-w-6xl px-6 py-16">
+      <div className="mx-auto max-w-6xl px-6 pt-10 pb-16 sm:py-16">
         <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center">
           {author.photo ? (
             <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-full border border-border sm:h-28 sm:w-28">

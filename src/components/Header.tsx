@@ -17,7 +17,7 @@ export function Header() {
       <div className="relative mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-4">
         <Link href="/" className="flex flex-col leading-tight">
           <span className="font-display text-lg font-semibold tracking-tight">{siteConfig.editorialBrand}</span>
-          <span className="text-xs text-brand-gold">
+          <span className="text-[0.65rem] leading-tight text-brand-gold sm:text-xs sm:leading-normal">
             Real estate by the {siteConfig.teamName}
           </span>
         </Link>

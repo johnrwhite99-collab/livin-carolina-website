@@ -66,23 +66,23 @@ export default function Home() {
             <p className="text-sm font-semibold uppercase tracking-widest text-brand-gold-dark">
               {siteConfig.primaryArea} &middot; Relocation Guide
             </p>
-            <h1 className="mt-4 font-display max-w-xl text-4xl font-semibold tracking-tight text-brand-black sm:text-5xl">
+            <h1 className="mt-4 font-display max-w-xl text-[2rem] font-semibold tracking-tight text-brand-black sm:text-5xl">
               Thinking About Moving to Charleston? Start Here.
             </h1>
-            <p className="mt-6 max-w-xl text-lg text-foreground/70">
+            <p className="mt-6 max-w-xl text-base leading-snug text-foreground/70 sm:text-lg sm:leading-[1.7778]">
               Housing costs, communities, new construction, storm season — the practical details
               people usually find out the hard way, written down before you need them.
             </p>
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-8 flex flex-wrap gap-3 sm:gap-4">
               <Link
                 href="/start-here"
-                className="rounded-full bg-brand-black px-6 py-3 font-semibold text-white transition-colors hover:bg-brand-black/80"
+                className="rounded-full bg-brand-black px-6 py-2.5 font-semibold text-white transition-colors hover:bg-brand-black/80 sm:py-3"
               >
                 Start Planning Your Move
               </Link>
               <a
                 href={siteConfig.bookAZoomUrl}
-                className="rounded-full border border-brand-black px-6 py-3 font-semibold text-brand-black transition-colors hover:bg-brand-black hover:text-white"
+                className="rounded-full border border-brand-black px-6 py-2.5 font-semibold text-brand-black transition-colors hover:bg-brand-black hover:text-white sm:py-3"
               >
                 Book a Zoom With John
               </a>
