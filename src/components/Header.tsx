@@ -13,11 +13,11 @@ const navLinks = [
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-brand-black text-white">
+    <header className="sticky top-0 z-40 border-b border-brand-gold/30 bg-brand-black text-white">
       <div className="relative mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-4">
         <Link href="/" className="flex flex-col leading-tight">
-          <span className="text-lg font-semibold tracking-tight">{siteConfig.editorialBrand}</span>
-          <span className="text-xs text-brand-gold">
+          <span className="font-display text-lg font-semibold tracking-tight">{siteConfig.editorialBrand}</span>
+          <span className="text-[0.65rem] leading-tight text-brand-gold sm:text-xs sm:leading-normal">
             Real estate by the {siteConfig.teamName}
           </span>
         </Link>

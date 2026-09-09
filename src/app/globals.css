@@ -8,6 +8,12 @@
   --brand-gold-dark: #a3873f;
   --surface: #ffffff;
   --border: #e5e2da;
+  /* A muted marsh green — a small, deliberately restrained nod to Lowcountry
+     scenery (pluff mud, marsh grass, live oaks) alongside the black/gold
+     brand identity. Used sparingly: a rule, a tag, a divider — never as a
+     section background or anything competing with the gold accent. */
+  --marsh: #4f5d43;
+  --marsh-light: #eef0e8;
 }
 
 @theme inline {
@@ -18,7 +24,10 @@
   --color-brand-gold-dark: var(--brand-gold-dark);
   --color-surface: var(--surface);
   --color-border: var(--border);
+  --color-marsh: var(--marsh);
+  --color-marsh-light: var(--marsh-light);
   --font-sans: var(--font-inter);
+  --font-display: var(--font-fraunces);
 }
 
 body {
