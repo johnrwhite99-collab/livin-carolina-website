@@ -14,9 +14,7 @@ export const metadata: Metadata = buildMetadata({
   path: "/",
 });
 
-// Set once a real photo lands in public/images/ — see README for the exact
-// dimensions HeroPhoto expects. Left undefined renders the placeholder.
-const HERO_IMAGE_SRC: string | undefined = undefined;
+const HERO_IMAGE_SRC = "/images/home/john-white-charleston-battery.jpg";
 
 const decisionCards = [
   { href: "/start-here", title: "Is Charleston Right for You?", description: "Start here if you haven't decided yet." },
@@ -88,7 +86,7 @@ export default function Home() {
               </a>
             </div>
           </div>
-          <HeroPhoto src={HERO_IMAGE_SRC} alt="Charleston, SC" priority />
+          <HeroPhoto src={HERO_IMAGE_SRC} alt="John White at White Point Garden in Charleston, South Carolina" preload />
         </div>
       </section>
 

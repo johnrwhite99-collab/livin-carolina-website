@@ -8,11 +8,11 @@ import Image from "next/image";
 export function HeroPhoto({
   src,
   alt,
-  priority = false,
+  preload = false,
 }: {
   src?: string;
   alt: string;
-  priority?: boolean;
+  preload?: boolean;
 }) {
   if (src) {
     return (
@@ -21,9 +21,9 @@ export function HeroPhoto({
           src={src}
           alt={alt}
           fill
-          priority={priority}
+          preload={preload}
           sizes="(min-width: 1024px) 45vw, 100vw"
-          className="object-cover"
+          className="object-cover object-left"
         />
       </div>
     );

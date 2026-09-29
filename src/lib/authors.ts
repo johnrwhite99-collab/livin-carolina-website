@@ -9,12 +9,15 @@ export interface Author {
   bio: string;
   brokerageAffiliation: string;
   photo?: string;
+  photoAlt?: string;
 }
 
 export const authors: Record<string, Author> = {
   "john-white": {
     slug: "john-white",
     name: "John White",
+    photo: "/images/authors/john-white-charleston-realtor.jpg",
+    photoAlt: "John White, Charleston area Realtor",
     role: "Realtor, Livin' Carolina Team",
     bio: "John White has lived in the Charleston area since 1998 and has worked as a Realtor since 2017. He joined the Livin' Carolina Team at Realty ONE Group Coastal in 2023 after working independently. John in Charleston is his ongoing effort to answer the questions people actually ask before they call an agent — real costs, communities, relocation logistics, and the details that don't always make it into the brochure.",
     brokerageAffiliation: "Livin' Carolina Team at Realty ONE Group Coastal",

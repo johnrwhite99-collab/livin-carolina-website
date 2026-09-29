@@ -18,8 +18,8 @@ export function AuthorTrust({ author }: { author: Author }) {
       <div className="mx-auto max-w-6xl px-6 pt-10 pb-16 sm:py-16">
         <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center">
           {author.photo ? (
-            <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-full border border-border sm:h-28 sm:w-28">
-              <Image src={author.photo} alt={author.name} fill sizes="112px" className="object-cover" />
+            <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-full border border-border sm:h-32 sm:w-32">
+              <Image src={author.photo} alt={author.photoAlt ?? author.name} fill sizes="(min-width: 640px) 128px, 112px" className="object-cover object-[54%_50%]" />
             </div>
           ) : (
             <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-brand-black text-2xl font-semibold text-white sm:h-28 sm:w-28">
