@@ -204,7 +204,10 @@ export function getNeighborhood(slug: string): Neighborhood | undefined {
 // items (the default, right now, for everything) contribute nothing rather
 // than silently rendering as $0.
 export function annualCostRange(n: Neighborhood): { low: number; high: number; hasFigures: boolean } {
-  const priced = n.feeItems.filter((item) => item.annualLow != null && item.annualHigh != null);
+  const priced = n.feeItems.filter(
+    (item) => (item.status === "verified" || item.status === "estimated")
+      && item.annualLow != null && item.annualHigh != null,
+  );
   return {
     low: priced.reduce((sum, item) => sum + (item.annualLow ?? 0), 0),
     high: priced.reduce((sum, item) => sum + (item.annualHigh ?? 0), 0),

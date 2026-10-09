@@ -43,7 +43,10 @@ export default async function NeighborhoodPage(props: PageProps<"/neighborhoods/
   if (!neighborhood) notFound();
 
   const range = annualCostRange(neighborhood);
-  const relatedPosts = getAllBlogPosts().filter((p) => p.slug.includes("cdd"));
+  // Explicit community association or the shared cost-of-living category.
+  const relatedPosts = getAllBlogPosts().filter(
+    (post) => post.parentArea === neighborhood.slug || post.category === "Cost of Living",
+  );
 
   return (
     <div className="mx-auto max-w-4xl px-6 py-16">
@@ -90,6 +93,20 @@ export default async function NeighborhoodPage(props: PageProps<"/neighborhoods/
                   {item.label}
                   {item.subsection && <span className="block text-xs text-foreground/50">{item.subsection}</span>}
                   {item.note && <span className="mt-1 block text-xs text-foreground/50">{item.note}</span>}
+                  {item.source && (
+                    <span className="mt-1 block text-xs text-foreground/60">
+                      Source: {/^https?:\/\//i.test(item.source) ? (
+                        <a href={item.source} target="_blank" rel="noopener noreferrer" className="break-words underline hover:text-brand-gold-dark">
+                          {item.source}
+                        </a>
+                      ) : item.source}
+                    </span>
+                  )}
+                  {item.lastVerified && (
+                    <span className="mt-1 block text-xs text-foreground/60">
+                      Last verified: <time dateTime={item.lastVerified}>{item.lastVerified}</time>
+                    </span>
+                  )}
                 </td>
                 <td className="px-4 py-3 text-foreground/70">{item.entityName ?? item.feeType}</td>
                 <td className="px-4 py-3 text-foreground/70">

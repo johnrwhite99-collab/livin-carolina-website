@@ -112,35 +112,34 @@ the planned IndexNow setup.
 (`@netlify/plugin-nextjs`) and an explicit `www` → apex redirect. Connect
 the repo in Netlify and deploy — no environment variables are required.
 
-## Adding real photography
+## Website photography
 
-Two image slots are wired up and ready for real photos — both currently
-render a deliberate placeholder (not a stock photo) until a real file is
-supplied:
+Real photos are installed and rendered with Next.js Image:
 
-- **Homepage hero** (`src/components/HeroPhoto.tsx`): drop a file in
-  `public/images/` and set `HERO_IMAGE_SRC` in `src/app/page.tsx` to its
-  path (e.g. `"/images/hero-charleston.jpg"`). Landscape, **4:3**, at least
-  **1600×1200px** (2000×1500 or larger preferred for retina screens), well
-  under 1MB after compression. A real Lowcountry scene — the Ravenel
-  Bridge, the peninsula skyline, marsh at golden hour, a streetscape —
-  works better here than a generic "for sale" photo.
-- **Homepage author/trust section** (`src/components/AuthorTrust.tsx`, also
-  used by the smaller `AuthorBox` on articles): set `photo` on the
-  `john-white` entry in `src/lib/authors.ts` to a path under
-  `public/images/`. Square, **1:1**, at least **800×800px**, an actual
-  headshot rather than a generic avatar.
+- **Homepage hero**: `public/images/home/john-white-charleston-battery.jpg`,
+  configured by `HERO_IMAGE_SRC` in `src/app/page.tsx`. `HeroPhoto` displays
+  it in the existing 4:3 slot with a left-aligned crop.
+- **Homepage author/trust portrait**:
+  `public/images/authors/john-white-charleston-realtor.jpg`, configured by
+  `photo` and `photoAlt` in `src/lib/authors.ts`. `AuthorTrust` displays it
+  in a circular crop at 112px on mobile and 128px on larger screens.
 
-Both components fall back gracefully (an abstract line-art placeholder for
-the hero, an initials mark for the author) if the source is left unset, so
-there's nothing broken in the meantime.
+Both source files are 3840×2160. Their original files remain unchanged;
+Next.js handles responsive image delivery. The components retain their
+placeholder fallbacks when no image source is set.
+
+The smaller `AuthorBox` on articles still displays initials, not
+`author.photo`. The About page currently displays the biography without a photo.
+
+Community related blog posts are selected by `parentArea` matching the
+community slug (for example, `nexton`) or by `category: "Cost of Living"`.
+Only published posts are included; no slug-keyword matching is used.
 
 ## Content still needed
 
 - Real fee figures and confirmed fee-type classifications in
   `src/lib/neighborhoods.ts` (currently `"unverified"` — see the critical
   rule above)
-- Real hero and author photography (see above)
 - Phase 2 content: remaining pillar pages (new construction, PCS/military
   relocation, buying in SC), more communities, and the Charleston True
   Cost / Carrying Cost calculator (the first interactive tool — the

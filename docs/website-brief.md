@@ -117,5 +117,6 @@ content is researched and verified rather than generated in bulk.
 
 - Real, sourced fee figures and confirmed fee-type classifications for most
   communities in `src/lib/neighborhoods.ts` (currently `"unverified"`)
-- Real logo/imagery in `public/` (currently text-only branding)
+- A logo asset (branding currently uses text). Real homepage hero and author
+  photography is installed under `public/images/home/` and `public/images/authors/`.
 - A real contact phone number in `src/lib/site-config.ts` (currently blank)

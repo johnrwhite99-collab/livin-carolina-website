@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Free Home Valuation",
   description:
     "Get a complimentary preliminary home valuation built from real MLS comps, plus the seller guide.",
-  alternates: { canonical: "/sellers" },
-};
+  path: "/sellers",
+});
 
 export default function SellersPage() {
   return (

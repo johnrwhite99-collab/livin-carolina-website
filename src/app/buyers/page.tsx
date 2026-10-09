@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Free Buyer Relocation Guide",
   description:
     "Get the Charleston-area buyer relocation guide: housing types, commute patterns, and the real HOA/POA and carrying-cost math.",
-  alternates: { canonical: "/buyers" },
-};
+  path: "/buyers",
+});
 
 export default function BuyersPage() {
   return (

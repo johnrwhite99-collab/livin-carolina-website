@@ -18,7 +18,8 @@ export function Header() {
         <Link href="/" className="flex flex-col leading-tight">
           <span className="font-display text-lg font-semibold tracking-tight">{siteConfig.editorialBrand}</span>
           <span className="text-[0.65rem] leading-tight text-brand-gold sm:text-xs sm:leading-normal">
-            Real estate by the {siteConfig.teamName}
+            <span className="block">{siteConfig.teamName}</span>
+            <span className="block">at {siteConfig.brokerageName}</span>
           </span>
         </Link>
         <nav className="hidden gap-6 text-sm font-medium lg:flex">
